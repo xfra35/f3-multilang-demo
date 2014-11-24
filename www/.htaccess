@@ -1,0 +1,48 @@
+# Enable rewrite engine and route requests to framework
+RewriteEngine On
+
+# Some servers require you to specify the `RewriteBase` directive
+# In such cases, it should be the path (relative to the document root)
+# containing this .htaccess file
+#
+# RewriteBase /
+
+RewriteRule ^lib|usr - [R=404]
+
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php [L,QSA]
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
+
+# Disable ETags
+<IfModule mod_header.c>
+    Header Unset ETag
+    FileETag none
+</IfModule>
+
+# Mime types
+<IfModule mod_mime.c>
+    AddType image/vnd.microsoft.icon .cur
+    AddType application/font-woff .woff
+</IfModule>
+
+# Default expires header if none specified (stay in browser cache for 10 days)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css A864000
+    ExpiresByType application/javascript A864000
+    ExpiresByType image/gif A864000
+    ExpiresByType image/png A864000
+    ExpiresByType image/jpeg A864000
+    ExpiresByType image/svg+xml A864000
+    ExpiresByType image/vnd.microsoft.icon A864000
+</IfModule>
+
+# Output compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/javascript text/css text/html image/svg+xml
+</IfModule>
+
+# Disabling of directory listing
+Options All -Indexes

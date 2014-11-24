@@ -1,0 +1,19 @@
+<h1>{{@before.title}}</h1>
+<p>{{@before.intro,count($_ALIASES)|format}}</p>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Url</th>
+        </tr>
+    </thead>
+    <tbody>
+        <repeat group="$_ALIASES" key="$name" value="$url">
+            <tr>
+                <td>{{$name}}</td>
+                <td>{{$url}}</td>
+            </tr>
+        </repeat>
+    </tbody>
+</table>
+<include href="app/ui/blocks/routes.html" with="routes_intro={{@before.after}}"/>

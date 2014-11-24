@@ -1,0 +1,37 @@
+<div id="routes">
+    <p>{{@$routes_intro?:@routes.intro}}</p>
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+            <repeat group="$langs" value="$lang">
+                <th>{{Locale::getDisplayLanguage($lang,$ml->current)}}</th>
+            </repeat>
+        </tr>
+        </thead>
+        <tbody>
+        <repeat group="$ml->aliases()" value="$name">
+            <tr>
+                <td>{{$name}}</td>
+                <repeat group="$langs" value="$lang">
+                    <set global="{{$ml->isGlobal($name)}}"/>
+                    <check if="!$global || $lang==$ml->primary">
+                        <td colspan="{{$global?count($langs):1}}" class="{{$global?'global':''}}">
+                            <check if="$url=$ml->alias($name,NULL,$lang)">
+                                <a href="{{$BASE.$url}}" class="{{$url==$PATTERN?'active':'inactive'}}">{{$url}}</a>
+                            </check>
+                        </td>
+                    </check>
+                </repeat>
+            </tr>
+        </repeat>
+        <tr>
+            <td>(root) <sup>*</sup></td>
+            <td colspan="{{count($langs)}}" class="global"><a href="{{$BASE}}/">/</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>
+        <sup>*</sup> {{@routes.autodetect}}
+    </p>
+</div>

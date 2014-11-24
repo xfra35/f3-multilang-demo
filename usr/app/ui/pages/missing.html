@@ -1,0 +1,18 @@
+<h1>{{@missing.title}}</h1>
+<p>{{@missing.intro}}</p>
+<ul>
+    <set url1="{{'/'.$ml->current.'/404'}}" url2="/404" url3="/la/404"/>
+    <li>
+        {{@missing.url}}
+        <ul>
+            <li><a href="{{$BASE.$url1}}">{{$url1}}</a></li>
+        </ul>
+    </li>
+    <li>
+        {{@missing.browser}}
+        <ul>
+            <li><a href="{{$BASE.$url2}}">{{$url2}}</a></li>
+            <li><a href="{{$BASE.$url3}}">{{$url3}}</a></li>
+        </ul>
+    </li>
+</ul>

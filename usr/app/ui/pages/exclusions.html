@@ -1,0 +1,5 @@
+<h1>{{@exclusions.title}}</h1>
+<p>{{@exclusions.text}}</p>
+<check if="$excluded">
+    <p>{{@exclusions.list,implode(', ',$excluded)|format}}</p>
+</check>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test multilang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="{{$BASE}}/css/style.css?v={{filemtime('www/css/style.css')}}">
+    <!--[if lt IE 9]>
+    <script src="{{$BASE}}/js/html5shiv.min.js"></script>
+    <![endif]-->
+    <include href="app/ui/blocks/hreflang.html"/>
+</head>
+<body>
+    <div id="wrapper">
+        <header id="banner" role="banner">
+            <h1><a href="{{$BASE}}{{'home'|alias}}">Demo</a></h1>
+            <nav id="menu" role="navigation">
+                <ul>
+                    <repeat group="$menu" value="$name">
+                        <check if="isset($ALIASES[$name])">
+                            <li class="{{$name==$ALIAS?'active':''}}"><a href="{{$BASE}}{{$name|alias}}">{{${$name}['title']}}</a></li>
+                        </check>
+                    </repeat>
+                </ul>
+            </nav>
+            <section id="browser">
+                {{@banner.browser}}<br><em>{{@$_SERVER['HTTP_ACCEPT_LANGUAGE']?:'-'}}</em>
+            </section>
+            <section id="src">
+                <p>{{@banner.src}}</p>
+                <a class="btn" href="{{@src.demo}}">Demo</a>
+                <a class="btn" href="{{@src.multilang}}">Multilang</a>
+                <a class="btn" href="{{@src.f3}}">Fat-Free Framework</a>
+            </section>
+        </header>
+        <nav id="flags" role="navigation" class="{{$ml->isGlobal($ALIAS)?'global':''}}">
+            <ul>
+                <repeat group="$langs" value="$lang">
+                    <set url="{{@$ml->alias($ALIAS,NULL,$lang)?:$ml->alias('home',NULL,$lang)}}"/>
+                    <li class="{{$lang}} {{$ml->current==$lang?'active':'inactive'}}"><a href="{{$BASE.$url}}" title="{{Locale::getDisplayLanguage($lang,$lang)}}">{{$lang}}</a></li>
+                </repeat>
+            </ul>
+        </nav>
+        <main id="main" role="main" class="{{$ALIAS}}">
+            <include href="{{$main}}" if="isset($main)"/>
+            <check if="isset($next)">
+                <div class="next">
+                    <a class="btn" href="{{$BASE}}{{$next|alias}}">{{@btn.next}}</a>
+                </div>
+            </check>
+        </main>
+        <check if="$ALIAS!='before'">
+            <aside>
+                <include href="app/ui/blocks/routes.html"/>
+            </aside>
+        </check>
+    </div>
+</body>
+</html>

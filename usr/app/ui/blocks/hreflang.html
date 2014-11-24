@@ -1,0 +1,5 @@
+<repeat group="$langs" value="$lang">
+    <check if="$ml->isLocalized($ALIAS,$lang)">
+        <link rel="alternate" hreflang="{{$lang}}" href="{{$BASE.$ml->alias($ALIAS,NULL,$lang)}}"/>
+    </check>
+</repeat>

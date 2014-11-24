@@ -1,0 +1,10 @@
+<switch expr="@ERROR.code">
+    <case value="404">
+        <h1>{{@error.404}}</h1>
+        <p>{{@error.404_txt,$BASE.$ml->alias('home')|format,raw}}</p>
+    </case>
+    <default>
+        <h1>{{@error.default,@ERROR.code|format}}</h1>
+        <p>{{@ERROR.status}}</p>
+    </default>
+</switch>
