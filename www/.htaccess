@@ -23,7 +23,10 @@ RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
 
 # Mime types
 <IfModule mod_mime.c>
+    AddType image/svg+xml .svg
     AddType image/vnd.microsoft.icon .cur
+    AddType application/vnd.ms-fontobject .eot
+    AddType application/font-sfnt .ttf
     AddType application/font-woff .woff
 </IfModule>
 
@@ -37,6 +40,9 @@ RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
     ExpiresByType image/jpeg A864000
     ExpiresByType image/svg+xml A864000
     ExpiresByType image/vnd.microsoft.icon A864000
+	ExpiresByType application/vnd.ms-fontobject A864000
+	ExpiresByType application/font-sfnt A864000
+	ExpiresByType application/font-woff A864000
 </IfModule>
 
 # Output compression
